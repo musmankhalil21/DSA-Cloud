@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------Important Note--------------------------------------------------------------
+----------------------------------------------------Important Note----------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------
 This application will run fine when hosted on player. In case you need to test locally please install the following browser extensions to allow Cross Origin API Requests (CORS) as the XML URL provided doesn't allow cross origin requests.
 1. **Chrome**: https://chrome.google.com/webstore/detail/moesif-orign-cors-changer/digfbfaphojjndkpccljibejjbppifbc
