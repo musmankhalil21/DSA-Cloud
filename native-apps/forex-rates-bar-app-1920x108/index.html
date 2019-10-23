@@ -3,14 +3,7 @@
 <head>
     <style>
         body {
-            --title-gradient-base-color: #1e5799;
-            --title-gradient-accent-color: #2989d8;
-            --title-font-color: #fff;
-            --title-font-size: 2.9vw;
-            --title-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            --flag-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
             font-size: var(--title-font-size);
-            font-family: 'Arial';
             padding: 0px;
             margin: 0px;
         }
@@ -18,7 +11,6 @@
         .wrapper {
             display: flex;
             flex-direction: row;
-            /* justify-content: space-between; */
             height: 100%;
         }
 
@@ -87,7 +79,7 @@
 </head>
 
 <body>
-        <div class="loader"></div>
+    <div class="loader"></div>
     <div class="wrapper">
         <div class="section-title">
             <p class="title">TODAY'S <span id="operating-mode">BUY</span> RATES</p>
@@ -120,25 +112,28 @@
             FlagAPIBaseURL: 'https://restcountries.eu/rest/v2/alpha', // Flags API URL
             OperatingMode: Mode.BuySell, // Operating mode config {Mode.Buy, Mode.Sell, Mode.BuySell}
             TransitionDelay: 3, // Transition delay between each currency
-            TitleGradientBaseColor: '#1e5799',
-            TitleGradientAccentColor: '#2989d8',
-            TitleFontColor: '#fff',
-            TitleShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-            FlagShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.15)',
-            FontSize: '2.9vw',
-            FontFamily: 'Arial',
+            TitleGradientBaseColor: '#1e5799', // Title section gradient base color
+            TitleGradientAccentColor: '#2989d8', // Title section gradient accent color
+            TitleFontColor: '#fff', // Title font color
+            TitleShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)', // Title box shadow
+            FlagShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.15)', // Flag box shadow
+            FontSize: '2.9vw', // Widget level font size
+            FontFamily: 'Arial', // Widget level font family
         };
 
         init(config);
 
         function init(config) {
-            $('body').css('--title-gradient-base-color', config.TitleGradientBaseColor);
-            $('body').css('--title-gradient-accent-color', config.TitleGradientAccentColor);
-            $('body').css('--title-font-color', config.TitleFontColor);
-            $('body').css('--title-shadow', config.TitleShadow);
-            $('body').css('--flag-shadow', config.FlagShadow);
-            $('body').css('--title-font-size', config.FontSize);
-            $('body').css('font-family', config.FontFamily);
+            $('body').css({
+                '--title-gradient-base-color': config.TitleGradientBaseColor,
+                '--title-gradient-accent-color': config.TitleGradientAccentColor,
+                '--title-gradient-accent-color': config.TitleGradientAccentColor,
+                '--title-font-color': config.TitleFontColor,
+                '--title-shadow': config.TitleShadow,
+                '--flag-shadow': config.FlagShadow,
+                '--title-font-size': config.FontSize,
+                'font-family': config.FontFamily
+            });
         }
 
         $.get(config.APIBaseURL, {}, function (data) {
