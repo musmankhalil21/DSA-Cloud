@@ -3,9 +3,10 @@
 <head>
     <style>
         body {
-            font-size: var(--title-font-size);
+            font-size: var(--content-font-size);
             padding: 0px;
             margin: 0px;
+            overflow: hidden;
         }
 
         .wrapper {
@@ -16,6 +17,7 @@
 
         .section-title {
             display: flex;
+            font-size: var(--title-font-size);
             flex-direction: column;
             justify-content: center;
             transform: skew(40deg);
@@ -82,7 +84,7 @@
     <div class="loader"></div>
     <div class="wrapper">
         <div class="section-title">
-            <p class="title">TODAY'S <span id="operating-mode">BUY</span> RATES</p>
+            <p class="title">TODAYS <span id="operating-mode">BUY</span> RATES</p>
         </div>
         <div class="section-currency">
             <div class="postfx">
@@ -117,7 +119,8 @@
             TitleFontColor: '#fff', // Title font color
             TitleShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)', // Title box shadow
             FlagShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.15)', // Flag box shadow
-            FontSize: '2.9vw', // Widget level font size
+            TitleFontSize: '2.9vw', // Title font size
+            ContentFontSize: '2.4vw', // Content font size
             FontFamily: 'Arial', // Widget level font family
         };
 
@@ -131,7 +134,8 @@
                 '--title-font-color': config.TitleFontColor,
                 '--title-shadow': config.TitleShadow,
                 '--flag-shadow': config.FlagShadow,
-                '--title-font-size': config.FontSize,
+                '--title-font-size': config.TitleFontSize,
+                '--content-font-size': config.ContentFontSize,
                 'font-family': config.FontFamily
             });
         }

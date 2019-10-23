@@ -2,16 +2,16 @@
 -----------------Configuration Options----------------
 ------------------------------------------------------
 
-1. APIBaseURL: XML datasource URL - Default: 'https://www.anpost.com/forex/anpostfxratesmulti.xml'
-2. OperatingMode: Operating mode configuration - Default: Mode.BuySell - Options: Mode.Buy, Mode.Sell, Mode.BuySell
-3. TransitionDelay: Transition delay between each currency in seconds - Default: 3 - Options: Change according to required number of seconds 
-4. TitleGradientBaseColor: Title section gradient base color - Default: '#1e5799' - Options: Any HTML color hex or rgba code
-5. TitleGradientAccentColor: Title section gradient base color - Default: '#2989d8' - Options: Any HTML color hex or rgba code
-6. TitleFontColor: Title font color - Default: '#fff' - Options: Any HTML color hex or rgba code
-7. TitleShadow: Title box shadow - Default: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'  - Options: Any CSS compatible shadow properties
-8. FlagShadow: Flag box shadow - Default: '0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.15)'  - Options: Any CSS compatible shadow properties
-9. FontSize: Widget level font size - Default: '2.9vw' - Options: Any required CSS compatible font size
-10. FontFamily: Widget level font family - Default: 'Arial' - Options: Any required CSS compatible font size
+1. **APIBaseURL**: XML datasource URL - Default: 'https://www.anpost.com/forex/anpostfxratesmulti.xml'
+2. **OperatingMode**: Operating mode configuration - Default: Mode.BuySell - Options: Mode.Buy, Mode.Sell, Mode.BuySell
+3. **TransitionDelay**: Transition delay between each currency in seconds - Default: 3 - Options: Change according to required number of seconds 
+4. **TitleGradientBaseColor**: Title section gradient base color - Default: '#1e5799' - Options: Any HTML color hex or rgba code
+5. **TitleGradientAccentColor**: Title section gradient base color - Default: '#2989d8' - Options: Any HTML color hex or rgba code
+6. **TitleFontColor**: Title font color - Default: '#fff' - Options: Any HTML color hex or rgba code
+7. **TitleShadow**: Title box shadow - Default: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'  - Options: Any CSS compatible shadow properties
+8. **FlagShadow**: Flag box shadow - Default: '0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.15)'  - Options: Any CSS compatible shadow properties
+9. **FontSize**: Widget level font size - Default: '2.9vw' - Options: Any required CSS compatible font size
+10. **FontFamily**: Widget level font family - Default: 'Arial' - Options: Any required CSS compatible font size
 
 ------------------------------------------------------
 ------------Don't Modify Following Options------------
