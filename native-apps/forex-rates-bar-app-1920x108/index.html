@@ -1,0 +1,204 @@
+<html>
+
+<head>
+    <style>
+        body {
+            --title-gradient-base-color: #1e5799;
+            --title-gradient-accent-color: #2989d8;
+            --title-font-color: #fff;
+            --title-font-size: 2.9vw;
+            --title-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            --flag-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+            font-size: var(--title-font-size);
+            font-family: 'Arial';
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: row;
+            /* justify-content: space-between; */
+            height: 100%;
+        }
+
+        .section-title {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transform: skew(40deg);
+            margin-left: 45px;
+            min-width: 565px;
+            margin-right: 2.5vw;
+            padding-left: 1.5vw;
+            padding-right: 1.5vw;
+            background: #1e5799;
+            background: -moz-linear-gradient(top, var(--title-gradient-base-color) 0%, var(--title-gradient-accent-color) 50%, var(--title-gradient-base-color) 100%);
+            background: -webkit-linear-gradient(top, var(--title-gradient-base-color) 0%, var(--title-gradient-accent-color) 50%, var(--title-gradient-base-color) 100%);
+            background: linear-gradient(to bottom, var(--title-gradient-base-color) 0%, var(--title-gradient-accent-color) 50%, var(--title-gradient-base-color) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--title-gradient-base-color)', endColorstr='var(--title-gradient-base-color)', GradientType=0);
+            box-shadow: var(--title-shadow);
+        }
+
+        .title {
+            transform: skew(-40deg);
+            color: var(--title-font-color);
+            font-size: var(--title-font-size);
+            text-align: center;
+        }
+
+        .section-currency {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 60%;
+        }
+
+        .rate-flag-wrapper {
+            display: flex;
+        }
+
+        .rate {
+            margin-right: 1vw;
+        }
+
+        img {
+            width: 100vh;
+            box-shadow: var(--flag-shadow);
+            max-height: 72px;
+        }
+
+        .loader {
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            position: absolute;
+            background: url('loader.gif') 50% 50% no-repeat rgb(249, 249, 249);
+            background-size: contain;
+        }
+
+        .d-none {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+        <div class="loader"></div>
+    <div class="wrapper">
+        <div class="section-title">
+            <p class="title">TODAY'S <span id="operating-mode">BUY</span> RATES</p>
+        </div>
+        <div class="section-currency">
+            <div class="postfx">
+                PostFX Card <span id="currency-code"></span>
+            </div>
+            <div class="rate-flag-wrapper">
+                <div class="rate">
+                </div>
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+    <script src="jquerymin.js"></script>
+    <script>
+
+        /*------------------------------------*/
+        // Operating mode enum. ! Don't Modify !
+        /*------------------------------------*/
+        var Mode = {
+            Buy: 'buy',
+            Sell: 'sell',
+            BuySell: 'buysell'
+        }
+
+        var config = {
+            APIBaseURL: 'https://www.anpost.com/forex/anpostfxratesmulti.xml', // XML datasource URL
+            FlagAPIBaseURL: 'https://restcountries.eu/rest/v2/alpha', // Flags API URL
+            OperatingMode: Mode.BuySell, // Operating mode config {Mode.Buy, Mode.Sell, Mode.BuySell}
+            TransitionDelay: 3, // Transition delay between each currency
+            TitleGradientBaseColor: '#1e5799',
+            TitleGradientAccentColor: '#2989d8',
+            TitleFontColor: '#fff',
+            TitleShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+            FlagShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.15)',
+            FontSize: '2.9vw',
+            FontFamily: 'Arial',
+        };
+
+        init(config);
+
+        function init(config) {
+            $('body').css('--title-gradient-base-color', config.TitleGradientBaseColor);
+            $('body').css('--title-gradient-accent-color', config.TitleGradientAccentColor);
+            $('body').css('--title-font-color', config.TitleFontColor);
+            $('body').css('--title-shadow', config.TitleShadow);
+            $('body').css('--flag-shadow', config.FlagShadow);
+            $('body').css('--title-font-size', config.FontSize);
+            $('body').css('font-family', config.FontFamily);
+        }
+
+        $.get(config.APIBaseURL, {}, function (data) {
+            var Rates = [];
+            $.ajaxSetup({ async: false });
+
+            if ((config.OperatingMode == Mode.Buy) || (config.OperatingMode == Mode.BuySell)) {
+                $.each($(data).find('BUYRATE'), function (index, row) {
+                    var tempObj = {
+                        currencyCode: row.children[1].innerHTML,
+                        flagURL: '',
+                        type: 'BUY',
+                        rate: row.children[2].innerHTML
+                    }
+                    $.get(config.FlagAPIBaseURL, {
+                        codes: row.children[1].innerHTML.slice(0, 2),
+                        fields: 'flag',
+                    }, function (flagdata) {
+                        tempObj.flagURL = flagdata[0].flag;
+                        Rates.push(tempObj);
+                    });
+                });
+            }
+
+            if ((config.OperatingMode == Mode.Sell) || (config.OperatingMode == Mode.BuySell)) {
+                $.each($(data).find('SELLRATE'), function (index, row) {
+                    var tempObj = {
+                        currencyCode: row.children[1].innerHTML,
+                        flagURL: '',
+                        type: 'SELL',
+                        rate: row.children[2].innerHTML
+                    }
+                    $.get(config.FlagAPIBaseURL, {
+                        codes: row.children[1].innerHTML.slice(0, 2),
+                        fields: 'flag',
+                    }, function (flagdata) {
+                        tempObj.flagURL = flagdata[0].flag;
+                        Rates.push(tempObj);
+                    });
+                });
+            }
+
+            index = 0;
+            renderData(Rates);
+
+            //Render function is displaying the data on screen after defined delay.
+            function renderData(data) {
+                if (index == data.length) {
+                    index = 0;
+                }
+                $('#operating-mode').html(data[index].type);
+                $('#currency-code').html(data[index].currencyCode);
+                $('.rate').html(data[index].rate);
+                $('img').attr('src', data[index].flagURL);
+                $('.loader').addClass('d-none');
+                index++;
+                setTimeout(renderData, config.TransitionDelay * 1000, data)
+            }
+        });
+    </script>
+</body>
+
+</html>
